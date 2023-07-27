@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Event schema
 const eventSchema = new mongoose.Schema({
 // Event schema fields
   name: {
@@ -24,26 +25,31 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: [{
-    type: String,
-    required: true,
-  }],
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  images: [{
+    type: String,
+    required: true,
+  }],
   stalls: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Stall',
   }],
-  //users attending events
+  //members attending events
   attendees:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   }],
 });
 
-// Define the virtual property upcomingEvents
+// the virtual property total attendees
+eventSchema.virtual('attendeesCount').get(function() {
+  return this.attendees.length;
+});
+
+// the virtual property upcomingEvents
 eventSchema.virtual('upcomingEvents', {
     ref: 'Event',
     localField: '_id',
@@ -55,6 +61,5 @@ eventSchema.virtual('upcomingEvents', {
 const Event = mongoose.model('Event', eventSchema);
 module.exports = Event;
 
-//join event feature
-//
+
 

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Stall schema
 const stallSchema = new mongoose.Schema({
   // Stall schema fields
   name: { type: String, required: true },
@@ -13,7 +14,7 @@ const stallSchema = new mongoose.Schema({
     type: String,
     required: true,
   }],
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },  // Reference to User model
   event: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' }, // Reference to Event model
   products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }], // Reference to Product model
 });
